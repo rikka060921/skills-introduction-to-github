@@ -15,7 +15,6 @@
 *.dmg
 *.gz
 *.iso
-*.jar
 *.rar
 *.tar
 *.zip
@@ -35,3 +34,56 @@
 .Trashes
 ehthumbs.db
 Thumbs.db
+
+# Android specific
+*.iml
+.gradle
+/local.properties
+/.idea/
+/build
+/captures
+.externalNativeBuild
+.cxx
+*.apk
+*.ap_
+*.aab
+
+# Gradle files
+.gradle/
+build/
+
+# Android Studio Navigation editor temp files
+.navigation/
+
+# Keystore files
+*.jks
+*.keystore
+
+# External native build folder generated in Android Studio 2.2 and later
+.externalNativeBuild
+.cxx/
+
+# Google Services
+google-services.json
+
+# Version control
+vcs.xml
+
+# lint
+lint/intermediates/
+lint/generated/
+lint/outputs/
+lint/tmp/
+lint-results*.xml
+
+# Android Profiling
+*.hprof
+
+# Misc
+/out/
+gen/
+bin/
+tmp/
+
+# Allow necessary JAR files for ksoap2
+!libs/*.jar

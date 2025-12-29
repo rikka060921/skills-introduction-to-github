@@ -1,0 +1,58 @@
+<resources>
+    <string name="app_name">智能农苑助手</string>
+    <string name="welcome_message">欢迎使用智能农苑助手</string>
+    
+    <!-- Tab titles -->
+    <string name="tab_plant_query">植物查询</string>
+    <string name="tab_home">主界面</string>
+    <string name="tab_settings">设置</string>
+    
+    <!-- Plant Query -->
+    <string name="plant_query_title">植物资料查询</string>
+    <string name="plant_search_hint">搜索植物名称</string>
+    
+    <!-- Main Screen -->
+    <string name="current_time">当前时间</string>
+    <string name="weather_forecast">天气预报</string>
+    <string name="plant_status">植物状态</string>
+    <string name="water_plant">浇水</string>
+    <string name="fertilize">施肥</string>
+    <string name="loosen_soil">松土</string>
+    <string name="status_normal">正常</string>
+    <string name="status_need_water">需要浇水</string>
+    <string name="status_need_fertilize">需要施肥</string>
+    <string name="status_need_loosen">需要松土</string>
+    
+    <!-- Settings -->
+    <string name="settings_title">提醒设置</string>
+    <string name="water_reminder">浇水提醒</string>
+    <string name="fertilize_reminder">施肥提醒</string>
+    <string name="loosen_soil_reminder">松土提醒</string>
+    <string name="manual_setting">手动设置</string>
+    <string name="smart_setting">智能设置</string>
+    <string name="select_plant_type">选择植物种类</string>
+    <string name="select_city">选择城市</string>
+    <string name="interval_days">间隔天数</string>
+    <string name="save_settings">保存设置</string>
+    
+    <!-- Weather -->
+    <string name="loading_weather">正在加载天气信息...</string>
+    <string name="weather_error">获取天气信息失败</string>
+    <string name="no_network">无网络连接</string>
+    
+    <!-- Notifications -->
+    <string name="reminder_channel_name">植物养护提醒</string>
+    <string name="reminder_channel_desc">定时提醒浇水、施肥和松土</string>
+    <string name="water_reminder_title">浇水提醒</string>
+    <string name="water_reminder_message">该给植物浇水了！</string>
+    <string name="fertilize_reminder_title">施肥提醒</string>
+    <string name="fertilize_reminder_message">该给植物施肥了！</string>
+    <string name="loosen_soil_reminder_title">松土提醒</string>
+    <string name="loosen_soil_reminder_message">该给植物松土了！</string>
+    
+    <!-- Common -->
+    <string name="confirm">确定</string>
+    <string name="cancel">取消</string>
+    <string name="success">成功</string>
+    <string name="error">错误</string>
+</resources>
