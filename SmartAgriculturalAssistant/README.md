@@ -131,8 +131,19 @@ SmartAgriculturalAssistant/
 
 ### 依赖库
 ```gradle
-implementation 'com.google.code.ksoap2-android:ksoap2-android:3.6.4'
+// ksoap2-android from JitPack
+implementation 'com.github.simpligility:ksoap2-android:3.6.4'
 implementation 'com.squareup.okhttp3:okhttp:4.12.0'
+```
+
+### 仓库配置
+在 `settings.gradle` 中需要添加 JitPack 仓库：
+```gradle
+repositories {
+    google()
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
 ```
 
 ### 权限配置

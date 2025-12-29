@@ -41,7 +41,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     
     // ksoap2-android for WebService communication
-    implementation 'com.google.code.ksoap2-android:ksoap2-android:3.6.4'
+    implementation 'com.github.simpligility:ksoap2-android:3.6.4'
     
     // For network operations
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
