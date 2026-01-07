@@ -24,6 +24,11 @@
       --shadow-strong: rgba(0,0,0,0.4);
       --shadow-medium: rgba(0,0,0,0.35);
       --shadow-soft: rgba(0,0,0,0.25);
+      --accent-strong: #0ea5e9;
+      --accent-highlight: #22d3ee;
+      --accent-mid: #67e8f9;
+      --badge-text: #7dd3fc;
+      --text-invert: #0b1120;
       --accent-soft: rgba(56,189,248,0.1);
       --accent-pill: rgba(56,189,248,0.12);
       --accent-border: rgba(56,189,248,0.35);
@@ -85,7 +90,7 @@
       transition: all 0.2s ease;
     }
     nav a:hover {
-      color: #0ea5e9;
+      color: var(--accent-strong);
       background: var(--accent-soft);
     }
     .hero {
@@ -120,7 +125,7 @@
       padding: 8px 12px;
       border-radius: 999px;
       font-size: 13px;
-      color: #7dd3fc;
+      color: var(--badge-text);
     }
     .cta {
       display: flex;
@@ -136,8 +141,8 @@
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
     .btn-primary {
-      background: linear-gradient(135deg, #0ea5e9, #22d3ee);
-      color: #0b1120;
+      background: linear-gradient(135deg, var(--accent-strong), var(--accent-highlight));
+      color: var(--text-invert);
       box-shadow: 0 12px 30px var(--accent-shadow);
     }
     .btn-ghost {
@@ -262,7 +267,7 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #0ea5e9, #67e8f9);
+      background: linear-gradient(135deg, var(--accent-strong), var(--accent-mid));
       box-shadow: 0 0 0 4px var(--timeline-ring);
     }
     .gallery {
@@ -304,7 +309,27 @@
       color: var(--text);
       font-size: 15px;
     }
+    input:focus, textarea:focus {
+      border-color: var(--accent-border);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+      outline: none;
+    }
     textarea { min-height: 110px; resize: vertical; }
+    .form-feedback {
+      margin: 6px 0 0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent-border);
+      color: var(--text);
+      visibility: hidden;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+    }
+    .form-feedback.is-visible {
+      visibility: visible;
+      opacity: 1;
+    }
     footer {
       text-align: center;
       padding: 32px 16px 42px;
@@ -461,11 +486,12 @@
     <div class="card">
       <h2>联系我</h2>
       <p class="section-desc">无论是新产品的 0-1 设计，还是成熟产品的体验焕新，都欢迎约时间聊聊。</p>
-      <form>
-        <input type="text" name="name" placeholder="你的名字">
-        <input type="email" name="email" placeholder="邮箱">
-        <textarea name="message" placeholder="想聊的项目、时间或灵感"></textarea>
-        <button type="button" class="btn btn-primary">发送意向</button>
+      <form action="">
+        <input type="text" name="name" placeholder="你的名字" required>
+        <input type="email" name="email" placeholder="邮箱" required>
+        <textarea name="message" placeholder="想聊的项目、时间或灵感" required></textarea>
+        <button type="submit" class="btn btn-primary">发送意向</button>
+        <p class="form-feedback" aria-live="polite" aria-atomic="true" role="status" aria-label="提交状态"></p>
       </form>
     </div>
     <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAwJyBoZWlnaHQ9JzgwMCc+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCcgeTE9JzAnIHgyPScxJyB5Mj0nMSc+PHN0b3Agc3RvcC1jb2xvcj0nI2E4NTVmNycgb2Zmc2V0PScwJy8+PHN0b3Agc3RvcC1jb2xvcj0nIzYzNjZmMScgb2Zmc2V0PScxJy8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgcng9JzI2JyBmaWxsPSd1cmwoI2cpJy8+PHRleHQgeD0nNTAlJyB5PSc1MiUnIGZvbnQtc2l6ZT0nNjYnIGZpbGw9JyNlMmU4ZjAnIGZvbnQtZmFtaWx5PSdJbnRlcixBcmlhbCcgdGV4dC1hbmNob3I9J21pZGRsZScgZG9taW5hbnQtYmFzZWxpbmU9J21pZGRsZSc+VGVhbTwvdGV4dD48L3N2Zz4=" alt="团队讨论">
@@ -474,5 +500,19 @@
   <footer>
     精密内容、丰富图片与扎实代码——这就是我的个人主页。期待与你一起把想法变成作品。
   </footer>
+  <script>
+    const contactForm = document.querySelector('#contact form');
+    const feedback = contactForm?.querySelector('.form-feedback');
+    if (contactForm) {
+      contactForm.addEventListener('submit', (event) => {
+        event.preventDefault();
+        if (feedback) {
+          feedback.textContent = '感谢留言！我会尽快回复。';
+          feedback.classList.add('is-visible');
+        }
+        contactForm.reset();
+      });
+    }
+  </script>
 </body>
 </html>
