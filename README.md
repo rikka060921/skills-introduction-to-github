@@ -17,6 +17,12 @@ _我们将在不到一小时的时间内学习如何使用GitHub_
 
 </header>
 
+## 个人主页网站（新增）
+
+- 新增了一个图片丰富、内容精密的个人主页文件：`index.html`。
+- 本地预览：在仓库根目录运行 `python -m http.server 8000` 后访问 `http://127.0.0.1:8000/index.html`。
+- 截图速览：![个人主页预览](/images/personal-homepage.png)
+
 <!--
   <<< Author notes: Step 1 >>>
   Choose 3-5 steps for your course.

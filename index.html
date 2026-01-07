@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人主页 | 创意与代码的交汇</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --card: #111827;
+      --accent: #38bdf8;
+      --muted: #cbd5e1;
+      --text: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Inter", "PingFang SC", "Microsoft YaHei", sans-serif;
+      background: radial-gradient(circle at 20% 20%, rgba(56,189,248,0.08), transparent 25%), radial-gradient(circle at 80% 0%, rgba(94,234,212,0.06), transparent 22%), var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+    }
+    header {
+      background: linear-gradient(135deg, rgba(56,189,248,0.18), rgba(94,234,212,0.12));
+      backdrop-filter: blur(6px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 20px 32px;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    nav .brand {
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    nav .brand img {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      object-fit: cover;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 10px 30px rgba(56,189,248,0.25);
+    }
+    nav a {
+      color: var(--text);
+      text-decoration: none;
+      margin-left: 18px;
+      font-weight: 600;
+      padding: 8px 12px;
+      border-radius: 10px;
+      transition: all 0.2s ease;
+    }
+    nav a:hover {
+      color: #0ea5e9;
+      background: rgba(56,189,248,0.1);
+    }
+    .hero {
+      max-width: 1200px;
+      margin: 32px auto 0;
+      padding: 40px 32px 10px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .hero-text h1 {
+      font-size: 44px;
+      margin: 0 0 12px;
+      line-height: 1.2;
+      letter-spacing: -0.5px;
+    }
+    .hero-text p {
+      color: var(--muted);
+      margin: 0 0 20px;
+      max-width: 640px;
+    }
+    .badges {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 18px;
+    }
+    .badge {
+      background: rgba(56,189,248,0.12);
+      border: 1px solid rgba(56,189,248,0.35);
+      padding: 8px 12px;
+      border-radius: 999px;
+      font-size: 13px;
+      color: #7dd3fc;
+    }
+    .cta {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      border: none;
+      padding: 14px 20px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #0ea5e9, #22d3ee);
+      color: #0b1120;
+      box-shadow: 0 12px 30px rgba(34,211,238,0.35);
+    }
+    .btn-ghost {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: var(--text);
+    }
+    .btn:hover { transform: translateY(-2px); }
+    .hero-visual {
+      position: relative;
+    }
+    .hero-visual img.main {
+      width: 100%;
+      border-radius: 22px;
+      border: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+      object-fit: cover;
+      aspect-ratio: 4/3;
+    }
+    .hero-visual .floating {
+      position: absolute;
+      bottom: -18px;
+      left: 20px;
+      background: rgba(17,24,39,0.9);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 14px 16px;
+      display: flex;
+      gap: 14px;
+      align-items: center;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.35);
+    }
+    .floating img {
+      width: 70px;
+      height: 70px;
+      border-radius: 12px;
+      object-fit: cover;
+    }
+    .floating .meta {
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .floating .meta strong {
+      color: var(--text);
+      display: block;
+    }
+    section {
+      max-width: 1200px;
+      margin: 34px auto;
+      padding: 0 32px;
+    }
+    h2 {
+      margin: 0 0 16px;
+      font-size: 28px;
+      letter-spacing: -0.3px;
+    }
+    .section-desc {
+      color: var(--muted);
+      margin-bottom: 20px;
+      max-width: 780px;
+    }
+    .grid {
+      display: grid;
+      gap: 18px;
+    }
+    .grid-3 { grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+    .card {
+      background: var(--card);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      padding: 16px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
+    .card img.cover {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      aspect-ratio: 16/9;
+      margin-bottom: 12px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .tag {
+      display: inline-block;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 12px;
+      color: var(--muted);
+      margin: 4px 6px 4px 0;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin-top: 10px;
+    }
+    .stat {
+      background: linear-gradient(145deg, rgba(56,189,248,0.14), rgba(14,165,233,0.06));
+      border: 1px solid rgba(56,189,248,0.25);
+      border-radius: 14px;
+      padding: 12px 14px;
+      text-align: center;
+    }
+    .stat strong { display: block; font-size: 24px; }
+    .timeline {
+      border-left: 2px solid rgba(56,189,248,0.4);
+      padding-left: 14px;
+      margin-top: 8px;
+    }
+    .timeline-item {
+      margin-bottom: 18px;
+      position: relative;
+      padding-left: 10px;
+    }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -22px;
+      top: 4px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0ea5e9, #67e8f9);
+      box-shadow: 0 0 0 4px rgba(14,165,233,0.2);
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+    }
+    .gallery img {
+      width: 100%;
+      border-radius: 12px;
+      object-fit: cover;
+      aspect-ratio: 4/3;
+      border: 1px solid rgba(255,255,255,0.08);
+      transition: transform 0.2s ease;
+    }
+    .gallery img:hover { transform: translateY(-4px); }
+    .contact {
+      display: grid;
+      grid-template-columns: 1fr 0.9fr;
+      gap: 20px;
+      align-items: center;
+    }
+    .contact img {
+      width: 100%;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      object-fit: cover;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.35);
+    }
+    .contact .card form {
+      display: grid;
+      gap: 10px;
+    }
+    input, textarea {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 10px 12px;
+      color: var(--text);
+      font-size: 15px;
+    }
+    textarea { min-height: 110px; resize: vertical; }
+    footer {
+      text-align: center;
+      padding: 32px 16px 42px;
+      color: var(--muted);
+      background: rgba(0,0,0,0.15);
+      border-top: 1px solid rgba(255,255,255,0.08);
+      margin-top: 30px;
+    }
+    @media (max-width: 980px) {
+      .hero, .contact { grid-template-columns: 1fr; }
+      header { position: static; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <div class="brand">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScyMDAnIGhlaWdodD0nMjAwJz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB5MT0nMCcgeDI9JzEnIHkyPScxJz48c3RvcCBzdG9wLWNvbG9yPScjMGVhNWU5JyBvZmZzZXQ9JzAnLz48c3RvcCBzdG9wLWNvbG9yPScjMjJkM2VlJyBvZmZzZXQ9JzEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyByeD0nMjYnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUyJScgZm9udC1zaXplPScxNicgZmlsbD0nI2UyZThmMCcgZm9udC1mYW1pbHk9J0ludGVyLEFyaWFsJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nbWlkZGxlJz5BdmF0YXI8L3RleHQ+PC9zdmc+" alt="头像">
+        <span>Rikka · 设计与开发</span>
+      </div>
+      <div>
+        <a href="#about">关于我</a>
+        <a href="#projects">项目</a>
+        <a href="#gallery">相册</a>
+        <a href="#contact">联系</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-text">
+      <div class="badges">
+        <span class="badge">全栈开发</span>
+        <span class="badge">产品设计</span>
+        <span class="badge">数据可视化</span>
+      </div>
+      <h1>用代码和设计，拼好每一块精密组件</h1>
+      <p>你好，我是 Rikka，一名热爱创造的全栈开发者与产品设计师。坚持以用户价值为核心，将精密的工程逻辑与充满温度的视觉体验结合，为每个项目注入灵感和可靠性。</p>
+      <div class="cta">
+        <button class="btn btn-primary">预约一场创意碰撞</button>
+        <button class="btn btn-ghost">下载简历（PDF）</button>
+      </div>
+      <div class="stats">
+        <div class="stat"><strong>48+</strong>完成的端到端产品</div>
+        <div class="stat"><strong>12年</strong>设计 &amp; 开发经验</div>
+        <div class="stat"><strong>4大洲</strong>跨文化远程协作</div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <img class="main" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAwJyBoZWlnaHQ9JzkwMCc+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCcgeTE9JzAnIHgyPScxJyB5Mj0nMSc+PHN0b3Agc3RvcC1jb2xvcj0nI2E4NTVmNycgb2Zmc2V0PScwJy8+PHN0b3Agc3RvcC1jb2xvcj0nIzYzNjZmMScgb2Zmc2V0PScxJy8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgcng9JzI2JyBmaWxsPSd1cmwoI2cpJy8+PHRleHQgeD0nNTAlJyB5PSc1MiUnIGZvbnQtc2l6ZT0nNzUnIGZpbGw9JyNlMmU4ZjAnIGZvbnQtZmFtaWx5PSdJbnRlcixBcmlhbCcgdGV4dC1hbmNob3I9J21pZGRsZScgZG9taW5hbnQtYmFzZWxpbmU9J21pZGRsZSc+SGVybzwvdGV4dD48L3N2Zz4=" alt="创意工作台">
+      <div class="floating">
+        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSczMjAnIGhlaWdodD0nMjIwJz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB5MT0nMCcgeDI9JzEnIHkyPScxJz48c3RvcCBzdG9wLWNvbG9yPScjMTRiOGE2JyBvZmZzZXQ9JzAnLz48c3RvcCBzdG9wLWNvbG9yPScjMjJkM2VlJyBvZmZzZXQ9JzEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyByeD0nMjYnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUyJScgZm9udC1zaXplPScxOCcgZmlsbD0nI2UyZThmMCcgZm9udC1mYW1pbHk9J0ludGVyLEFyaWFsJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nbWlkZGxlJz5QcmV2aWV3PC90ZXh0Pjwvc3ZnPg==" alt="UI 预览">
+        <div class="meta">
+          <strong>最新作品 · Aurora 控制台</strong>
+          数据驱动的运维仪表盘，强调低延迟与夜间护眼的视觉体系。
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about">
+    <h2>关于我</h2>
+    <p class="section-desc">我的工作理念是“让复杂变得优雅”。在快速迭代的产品节奏中，保持信息架构的清晰与界面元素的精度，确保每一个像素与代码逻辑都服务于用户目标。</p>
+    <div class="grid grid-3">
+      <div class="card">
+        <img class="cover" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4MDAnIGhlaWdodD0nNjAwJz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB5MT0nMCcgeDI9JzEnIHkyPScxJz48c3RvcCBzdG9wLWNvbG9yPScjZjk3MzE2JyBvZmZzZXQ9JzAnLz48c3RvcCBzdG9wLWNvbG9yPScjZmI3MTg1JyBvZmZzZXQ9JzEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyByeD0nMjYnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUyJScgZm9udC1zaXplPSc1MCcgZmlsbD0nI2UyZThmMCcgZm9udC1mYW1pbHk9J0ludGVyLEFyaWFsJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nbWlkZGxlJz5VWDwvdGV4dD48L3N2Zz4=" alt="UX 研究">
+        <h3>用户体验研究</h3>
+        <p>采用可用性测试、人物画像与旅程地图，精准定位需求，将洞察映射为信息架构与界面语言。</p>
+        <span class="tag">访谈</span><span class="tag">无障碍</span><span class="tag">可用性测试</span>
+      </div>
+      <div class="card">
+        <img class="cover" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4MDAnIGhlaWdodD0nNjAwJz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB5MT0nMCcgeDI9JzEnIHkyPScxJz48c3RvcCBzdG9wLWNvbG9yPScjMjJjNTVlJyBvZmZzZXQ9JzAnLz48c3RvcCBzdG9wLWNvbG9yPScjODRjYzE2JyBvZmZzZXQ9JzEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyByeD0nMjYnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUyJScgZm9udC1zaXplPSc1MCcgZmlsbD0nI2UyZThmMCcgZm9udC1mYW1pbHk9J0ludGVyLEFyaWFsJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nbWlkZGxlJz5Gcm9udGVuZDwvdGV4dD48L3N2Zz4=" alt="前端代码">
+        <h3>前端工程化</h3>
+        <p>精通 React、TypeScript 与现代构建链路，关注性能监测、状态管理与设计体系的组件化落地。</p>
+        <span class="tag">React</span><span class="tag">TypeScript</span><span class="tag">Design System</span>
+      </div>
+      <div class="card">
+        <img class="cover" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4MDAnIGhlaWdodD0nNjAwJz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB5MT0nMCcgeDI9JzEnIHkyPScxJz48c3RvcCBzdG9wLWNvbG9yPScjMGVhNWU5JyBvZmZzZXQ9JzAnLz48c3RvcCBzdG9wLWNvbG9yPScjMjJkM2VlJyBvZmZzZXQ9JzEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyByeD0nMjYnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUyJScgZm9udC1zaXplPSc1MCcgZmlsbD0nI2UyZThmMCcgZm9udC1mYW1pbHk9J0ludGVyLEFyaWFsJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nbWlkZGxlJz5EYXRhVml6PC90ZXh0Pjwvc3ZnPg==" alt="数据可视化">
+        <h3>数据可视化</h3>
+        <p>将复杂数据压缩成易读的视觉语言，兼顾实时性与审美，常用 D3.js、ECharts 与自适应布局。</p>
+        <span class="tag">D3.js</span><span class="tag">ECharts</span><span class="tag">WebGL</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <h2>精选项目</h2>
+    <p class="section-desc">以下是近期完成的端到端产品案例，涵盖金融、健康、创意工具与企业运营，均包含高保真设计与可上线的代码实现。</p>
+    <div class="grid grid-2">
+      <div class="card">
+        <img class="cover" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAwJyBoZWlnaHQ9Jzc2MCc+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCcgeTE9JzAnIHgyPScxJyB5Mj0nMSc+PHN0b3Agc3RvcC1jb2xvcj0nI2E4NTVmNycgb2Zmc2V0PScwJy8+PHN0b3Agc3RvcC1jb2xvcj0nIzYzNjZmMScgb2Zmc2V0PScxJy8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgcng9JzI2JyBmaWxsPSd1cmwoI2cpJy8+PHRleHQgeD0nNTAlJyB5PSc1MiUnIGZvbnQtc2l6ZT0nNjMnIGZpbGw9JyNlMmU4ZjAnIGZvbnQtZmFtaWx5PSdJbnRlcixBcmlhbCcgdGV4dC1hbmNob3I9J21pZGRsZScgZG9taW5hbnQtYmFzZWxpbmU9J21pZGRsZSc+UmlzazwvdGV4dD48L3N2Zz4=" alt="金融风控平台">
+        <h3>Artemis · 金融风控平台</h3>
+        <p>为跨国银行打造的风控中台，支持实时交易监测、异常溯源与可视化审计。响应式界面，夜间模式，平均响应降低 28%。</p>
+        <span class="tag">实时流</span><span class="tag">React</span><span class="tag">微前端</span>
+      </div>
+      <div class="card">
+        <img class="cover" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAwJyBoZWlnaHQ9Jzc2MCc+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCcgeTE9JzAnIHgyPScxJyB5Mj0nMSc+PHN0b3Agc3RvcC1jb2xvcj0nIzE0YjhhNicgb2Zmc2V0PScwJy8+PHN0b3Agc3RvcC1jb2xvcj0nIzIyZDNlZScgb2Zmc2V0PScxJy8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgcng9JzI2JyBmaWxsPSd1cmwoI2cpJy8+PHRleHQgeD0nNTAlJyB5PSc1MiUnIGZvbnQtc2l6ZT0nNjMnIGZpbGw9JyNlMmU4ZjAnIGZvbnQtZmFtaWx5PSdJbnRlcixBcmlhbCcgdGV4dC1hbmNob3I9J21pZGRsZScgZG9taW5hbnQtYmFzZWxpbmU9J21pZGRsZSc+SGVhbHRoPC90ZXh0Pjwvc3ZnPg==" alt="健康监测">
+        <h3>Pulse · 健康监测套件</h3>
+        <p>整合可穿戴设备数据，提供个性化趋势与预警。通过动态配色与微交互减少阅读负担，留存率提升 17%。</p>
+        <span class="tag">数据融合</span><span class="tag">可穿戴</span><span class="tag">API 设计</span>
+      </div>
+      <div class="card">
+        <img class="cover" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAwJyBoZWlnaHQ9Jzc2MCc+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCcgeTE9JzAnIHgyPScxJyB5Mj0nMSc+PHN0b3Agc3RvcC1jb2xvcj0nI2Y5NzMxNicgb2Zmc2V0PScwJy8+PHN0b3Agc3RvcC1jb2xvcj0nI2ZiNzE4NScgb2Zmc2V0PScxJy8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgcng9JzI2JyBmaWxsPSd1cmwoI2cpJy8+PHRleHQgeD0nNTAlJyB5PSc1MiUnIGZvbnQtc2l6ZT0nNjMnIGZpbGw9JyNlMmU4ZjAnIGZvbnQtZmFtaWx5PSdJbnRlcixBcmlhbCcgdGV4dC1hbmNob3I9J21pZGRsZScgZG9taW5hbnQtYmFzZWxpbmU9J21pZGRsZSc+Q29sbGFiPC90ZXh0Pjwvc3ZnPg==" alt="创意工作台">
+        <h3>Palette · 创意协作桌面</h3>
+        <p>为分布式设计团队提供的实时白板与资产库，支持手写、矢量与组件共存。实现延迟自适应的同步策略。</p>
+        <span class="tag">WebRTC</span><span class="tag">协作</span><span class="tag">性能优化</span>
+      </div>
+      <div class="card">
+        <img class="cover" src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAwJyBoZWlnaHQ9Jzc2MCc+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCcgeTE9JzAnIHgyPScxJyB5Mj0nMSc+PHN0b3Agc3RvcC1jb2xvcj0nIzIyYzU1ZScgb2Zmc2V0PScwJy8+PHN0b3Agc3RvcC1jb2xvcj0nIzg0Y2MxNicgb2Zmc2V0PScxJy8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgcng9JzI2JyBmaWxsPSd1cmwoI2cpJy8+PHRleHQgeD0nNTAlJyB5PSc1MiUnIGZvbnQtc2l6ZT0nNjMnIGZpbGw9JyNlMmU4ZjAnIGZvbnQtZmFtaWx5PSdJbnRlcixBcmlhbCcgdGV4dC1hbmNob3I9J21pZGRsZScgZG9taW5hbnQtYmFzZWxpbmU9J21pZGRsZSc+S1BJPC90ZXh0Pjwvc3ZnPg==" alt="企业运营">
+        <h3>Atlas · 企业运营驾驶舱</h3>
+        <p>为 500+ 团队提供的 KPI 聚合与预测模型面板，结合地图、表格与时间轴，突出决策所需的关键指标。</p>
+        <span class="tag">预测模型</span><span class="tag">地图可视化</span><span class="tag">SaaS</span>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>经历与亮点</h2>
+    <p class="section-desc">保持对前沿技术与设计趋势的好奇，用扎实的工程执行力将想法落地。</p>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h4>首席产品设计师 · Orora Lab</h4>
+        <div>2022 - 至今</div>
+        <p>主导多端设计体系升级，建立代码化组件库与自动化视觉回归，设计一致性提升 30%。</p>
+      </div>
+      <div class="timeline-item">
+        <h4>全栈工程师 · Polaris Studio</h4>
+        <div>2018 - 2022</div>
+        <p>负责前后端一体化交付，落地云原生部署、CI/CD 与监控体系，为 12 个客户项目缩短上线周期 25%。</p>
+      </div>
+      <div class="timeline-item">
+        <h4>交互设计师 · Independent</h4>
+        <div>2014 - 2018</div>
+        <p>为创意团队提供 UX 咨询，专注信息架构与动效语言。作品多次入围 Awwwards &amp; CSSDA。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <h2>灵感相册</h2>
+    <p class="section-desc">记录旅途、展览与现场工作瞬间，让每张图片都成为创作的燃料。</p>
+    <div class="gallery">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4MDAnIGhlaWdodD0nNjAwJz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB5MT0nMCcgeDI9JzEnIHkyPScxJz48c3RvcCBzdG9wLWNvbG9yPScjMGVhNWU5JyBvZmZzZXQ9JzAnLz48c3RvcCBzdG9wLWNvbG9yPScjMjJkM2VlJyBvZmZzZXQ9JzEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyByeD0nMjYnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUyJScgZm9udC1zaXplPSc1MCcgZmlsbD0nI2UyZThmMCcgZm9udC1mYW1pbHk9J0ludGVyLEFyaWFsJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nbWlkZGxlJz5HYWxsZXJ5MTwvdGV4dD48L3N2Zz4=" alt="雪山星空">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4MDAnIGhlaWdodD0nNjAwJz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB5MT0nMCcgeDI9JzEnIHkyPScxJz48c3RvcCBzdG9wLWNvbG9yPScjYTg1NWY3JyBvZmZzZXQ9JzAnLz48c3RvcCBzdG9wLWNvbG9yPScjNjM2NmYxJyBvZmZzZXQ9JzEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyByeD0nMjYnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUyJScgZm9udC1zaXplPSc1MCcgZmlsbD0nI2UyZThmMCcgZm9udC1mYW1pbHk9J0ludGVyLEFyaWFsJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nbWlkZGxlJz5HYWxsZXJ5MjwvdGV4dD48L3N2Zz4=" alt="城市灯光">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4MDAnIGhlaWdodD0nNjAwJz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB5MT0nMCcgeDI9JzEnIHkyPScxJz48c3RvcCBzdG9wLWNvbG9yPScjMTRiOGE2JyBvZmZzZXQ9JzAnLz48c3RvcCBzdG9wLWNvbG9yPScjMjJkM2VlJyBvZmZzZXQ9JzEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyByeD0nMjYnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUyJScgZm9udC1zaXplPSc1MCcgZmlsbD0nI2UyZThmMCcgZm9udC1mYW1pbHk9J0ludGVyLEFyaWFsJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nbWlkZGxlJz5HYWxsZXJ5MzwvdGV4dD48L3N2Zz4=" alt="自然森林">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4MDAnIGhlaWdodD0nNjAwJz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB5MT0nMCcgeDI9JzEnIHkyPScxJz48c3RvcCBzdG9wLWNvbG9yPScjZjk3MzE2JyBvZmZzZXQ9JzAnLz48c3RvcCBzdG9wLWNvbG9yPScjZmI3MTg1JyBvZmZzZXQ9JzEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyByeD0nMjYnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUyJScgZm9udC1zaXplPSc1MCcgZmlsbD0nI2UyZThmMCcgZm9udC1mYW1pbHk9J0ludGVyLEFyaWFsJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nbWlkZGxlJz5HYWxsZXJ5NDwvdGV4dD48L3N2Zz4=" alt="艺术展览">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4MDAnIGhlaWdodD0nNjAwJz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB5MT0nMCcgeDI9JzEnIHkyPScxJz48c3RvcCBzdG9wLWNvbG9yPScjMjJjNTVlJyBvZmZzZXQ9JzAnLz48c3RvcCBzdG9wLWNvbG9yPScjODRjYzE2JyBvZmZzZXQ9JzEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyByeD0nMjYnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUyJScgZm9udC1zaXplPSc1MCcgZmlsbD0nI2UyZThmMCcgZm9udC1mYW1pbHk9J0ludGVyLEFyaWFsJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nbWlkZGxlJz5HYWxsZXJ5NTwvdGV4dD48L3N2Zz4=" alt="创意工作台">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPSc4MDAnIGhlaWdodD0nNjAwJz48ZGVmcz48bGluZWFyR3JhZGllbnQgaWQ9J2cnIHgxPScwJyB5MT0nMCcgeDI9JzEnIHkyPScxJz48c3RvcCBzdG9wLWNvbG9yPScjMGVhNWU5JyBvZmZzZXQ9JzAnLz48c3RvcCBzdG9wLWNvbG9yPScjMjJkM2VlJyBvZmZzZXQ9JzEnLz48L2xpbmVhckdyYWRpZW50PjwvZGVmcz48cmVjdCB3aWR0aD0nMTAwJScgaGVpZ2h0PScxMDAlJyByeD0nMjYnIGZpbGw9J3VybCgjZyknLz48dGV4dCB4PSc1MCUnIHk9JzUyJScgZm9udC1zaXplPSc1MCcgZmlsbD0nI2UyZThmMCcgZm9udC1mYW1pbHk9J0ludGVyLEFyaWFsJyB0ZXh0LWFuY2hvcj0nbWlkZGxlJyBkb21pbmFudC1iYXNlbGluZT0nbWlkZGxlJz5HYWxsZXJ5NjwvdGV4dD48L3N2Zz4=" alt="科技与光线">
+    </div>
+  </section>
+
+  <section id="contact" class="contact">
+    <div class="card">
+      <h2>联系我</h2>
+      <p class="section-desc">无论是新产品的 0-1 设计，还是成熟产品的体验焕新，都欢迎约时间聊聊。</p>
+      <form>
+        <input type="text" name="name" placeholder="你的名字">
+        <input type="email" name="email" placeholder="邮箱">
+        <textarea name="message" placeholder="想聊的项目、时间或灵感"></textarea>
+        <button type="button" class="btn btn-primary">发送意向</button>
+      </form>
+    </div>
+    <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0naHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmcnIHdpZHRoPScxMjAwJyBoZWlnaHQ9JzgwMCc+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSdnJyB4MT0nMCcgeTE9JzAnIHgyPScxJyB5Mj0nMSc+PHN0b3Agc3RvcC1jb2xvcj0nI2E4NTVmNycgb2Zmc2V0PScwJy8+PHN0b3Agc3RvcC1jb2xvcj0nIzYzNjZmMScgb2Zmc2V0PScxJy8+PC9saW5lYXJHcmFkaWVudD48L2RlZnM+PHJlY3Qgd2lkdGg9JzEwMCUnIGhlaWdodD0nMTAwJScgcng9JzI2JyBmaWxsPSd1cmwoI2cpJy8+PHRleHQgeD0nNTAlJyB5PSc1MiUnIGZvbnQtc2l6ZT0nNjYnIGZpbGw9JyNlMmU4ZjAnIGZvbnQtZmFtaWx5PSdJbnRlcixBcmlhbCcgdGV4dC1hbmNob3I9J21pZGRsZScgZG9taW5hbnQtYmFzZWxpbmU9J21pZGRsZSc+VGVhbTwvdGV4dD48L3N2Zz4=" alt="团队讨论">
+  </section>
+
+  <footer>
+    精密内容、丰富图片与扎实代码——这就是我的个人主页。期待与你一起把想法变成作品。
+  </footer>
+</body>
+</html>
